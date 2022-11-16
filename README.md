@@ -1,4 +1,4 @@
-# R-Markowitz-Model
+# Python-Markowitz-Model
 This Code optimizes the strategic asset allocation using the Markowitz model
 
 The **modern portfolio theory** (MPT) is a practical method for selecting investments in order to maximize their overall returns within an acceptable level of risk. This mathematical framework is used to build a portfolio of investments that maximize the amount of expected return for the collective given level of risk.
@@ -38,3 +38,4 @@ We begin the mean-variance analysis of the user’s chosen stocks by computing t
 
 ### Sources:
 https://www.codingfinance.com/post/2018-03-27-download-price/
+https://www.youtube.com/watch?v=f2BCmQBCwDs
