@@ -174,8 +174,10 @@ plt.scatter(expectedVol[maxIndex],expectedLogReturn[maxIndex],c='red')
 plt.title("Identification of the optimal portfolio (simulated version)")
 plt.show()
 ```
-![Alt text](/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png "Simulated Portfolio Optimization")
-<img src="/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png" alt="Alt text" title="Optional title">
+![Example-Simulated-Portfolio-Optimization](/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png "Simulated Portfolio Optimization")
+<img src="/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png" alt="Example-Simulated-Portfolio-Optimization" title="Example-Simulated-Portfolio-Optimization">
+
+![Example-Simulated-Portfolio-Optimization](https://user-images.githubusercontent.com/72102851/204142186-ed816817-0789-4af9-bd54-aca045786afd.png)
 
 Below you can find the link to get startet with Matplotlib:
 > https://matplotlib.org/stable/users/getting_started/index.html
