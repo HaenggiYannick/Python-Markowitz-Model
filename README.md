@@ -174,10 +174,7 @@ plt.scatter(expectedVol[maxIndex],expectedLogReturn[maxIndex],c='red')
 plt.title("Identification of the optimal portfolio (simulated version)")
 plt.show()
 ```
-![Example-Simulated-Portfolio-Optimization](/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png "Simulated Portfolio Optimization")
-<img src="/Users/yannickhaenggi/Desktop/HS22/Advanced Programming/Abgabe/simulation-plot.png" alt="Example-Simulated-Portfolio-Optimization" title="Example-Simulated-Portfolio-Optimization">
-
-![Example-Simulated-Portfolio-Optimization](https://user-images.githubusercontent.com/72102851/204142186-ed816817-0789-4af9-bd54-aca045786afd.png)
+<img width="1083" alt="Example-Simulated-Portfolio-Optimization" src="https://user-images.githubusercontent.com/72102851/204142837-53272b5e-fdb3-45c4-96a6-54114dcef091.png">
 
 Below you can find the link to get startet with Matplotlib:
 > https://matplotlib.org/stable/users/getting_started/index.html
@@ -271,6 +268,8 @@ plt.title("Simulated portfolios and optimal PF based on closed form optimization
 plt.show()
 ```
 
+<img width="1086" alt="Simulated-Portfolio-Optimization" src="https://user-images.githubusercontent.com/72102851/204142685-6d881128-0b27-4948-99c9-44b9519225ac.png">
+
 ## 4 Advise the User
 
 Below we use a comprehensive print statement, to tell the user which weight (in %) he should assign to each stock to optimize his portfolio returns. In a next stept, we disclose the exact amount of funds the user shall allocate to each of the four stocks. 
@@ -298,6 +297,8 @@ plt.title('Capital based on portfolio optimization and timerange estimation',fon
 
 plt.show()
 ```
+
+<img width="1188" alt="Example-Portfolio-Performance" src="https://user-images.githubusercontent.com/72102851/204142859-b8e98375-038a-4aa0-9bbe-a9a331607532.png">
 
 # Happy Trading!
 ![myImage](https://media.giphy.com/media/XRB1uf2F9bGOA/giphy.gif)
