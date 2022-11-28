@@ -1,5 +1,5 @@
-# Python-Markowitz-Model
-This Code optimizes the strategic asset allocation using the Markowitz model
+# Python Markowitz Model
+This Code optimizes the strategic asset allocation using the Markowitz model.
 
 The **modern portfolio theory** (MPT) is a practical method for selecting investments in order to maximize their overall returns within an acceptable level of risk. This mathematical framework is used to build a portfolio of investments that maximize the amount of expected return for the collective given level of risk.
 
@@ -8,6 +8,7 @@ He was later awarded a Nobel Prize for his work on modern portfolio theory.
 
 A key component of the MPT theory is diversification. Most investments are either high risk and high return or low risk and low return. Markowitz argued that investors could **achieve their best results by choosing an optimal mix of the two based on an assessment of their individual tolerance to risk**.
 
+<sub>Source:</sub>
 <sub>https://www.investopedia.com/terms/m/modernportfoliotheory.asp</sub>
 
 ## Overview
@@ -18,7 +19,7 @@ A key component of the MPT theory is diversification. Most investments are eithe
 4. [Advise the User](#4-advise-the-user)
 
 ## Jupyter Notebook
-As we compiled this program as a jupyter notebook we instruct you to do so as well. Everything you need in order to set up JupyterLab can be found here
+As we compiled this program as a jupyter notebook we instruct you to do so as well. Everything you need in order to set up JupyterLab can be found here:
 > https://jupyter.org/install
 
 Once your jupyter notebook is up and running, you can continue to the next step.
@@ -41,7 +42,7 @@ import pandas as pd
 import sys
 ```
 ### 1.2 User Input
-In the following sequence multiple while loops are used to take the inputs given by the user. First, the user enters the investment amount he is interested to optimize, then, the user enters a time frame within which the portfolio of the four stocks shall be optimized. The latter are entered last by typing in their ticker (be sure to use the exact same ticker as on Yahoo Finance - whether you use upper- or lowercase letters is irrelevant, however).
+In the following sequence multiple while loops are used to take the inputs given by the user. First, the user enters the investment amount he/she is interested to optimize, then, the user enters a time frame within which the portfolio of the four stocks shall be optimized. The latter are entered last by typing in their ticker. Be sure to use the exact same ticker that is used on Yahoo Finance (https://finance.yahoo.com/) - whether you use upper- or lowercase letters is irrelevant, however.
 
 ```
 while True:
@@ -117,14 +118,13 @@ In this step pd.concat() is used to get the closing price of the stocks of inter
 stocks = pd.concat([data1['Close'],data2['Close'],data3['Close'],data4['Close']],axis=1)
 stocks.columns = [ticker1,ticker2,ticker3,ticker4]
 ```
-Using this dataframe, one can compute the returns using this return formula:
+Using the resulting pandas dataframe, one can compute the returns using this return formula:
 $$r_t=\displaystyle \frac{p_t-p_{t-1}}{p_{t-1}}$$
-Python code ro calculate the return:
+Python code to calculate the return:
 ```
 raw_returns = (stocks-stocks.shift(1))/stocks.shift(1)
 ```
-Then, because log promotes "fairness", calculate the log of returns:
-(first import NumPy which offers comprehensive mathematical functions in order to be able to use the log and other mathematical functions)
+Then, because log promotes "fairness", calculate the log of returns. To do so you need to first import NumPy, which offers comprehensive mathematical functions. Once you have imported NumPy to your notebook you are be able to use the log and other mathematical functions.
 ```
 import numpy as np
 logReturns = np.log(1+raw_returns)
@@ -135,7 +135,9 @@ logReturns = np.log(1+raw_returns)
 In the following, we determine the Sharpe Ratio (SR) for every portfolio, using this formula:
 $$SR(w)=\displaystyle \frac{R(w)-R_f}{σ(w)}$$
 
-By simulating 10000 portfolios, we would be able to tell the user which proportion he should allocate to each stock by finding the best weight factor for each stock. To do so we first define Arrays to then fill with the sharpe ratios of the simulated portfolios. Then we calculate the mean log return, the covariance and in a for loop generate a random starting-weight to then simulate deviating weight factors in order to generate 10000 simulated portfolios.
+By simulating 10'000 portfolios, we will be able to tell the user which proportion he/she should allocate to each stock by finding the best weight factor for each stock.
+
+To do so we first define Arrays to then fill with the sharpe ratios of the simulated portfolios. Then we calculate the mean log return, the covariance and in a for loop generate a random starting-weight to then simulate deviating weight factors in order to generate 10'000 simulated portfolios.
 
 ``` 
 numberPortfolios = 10000
@@ -174,6 +176,9 @@ plt.scatter(expectedVol[maxIndex],expectedLogReturn[maxIndex],c='red')
 plt.title("Identification of the optimal portfolio (simulated version)")
 plt.show()
 ```
+
+The red point in the below scatterplot describes the expected returns and the associated risk (standard deviation) of the optimized portfolio from the simulation. As this is a simulation exercise, the optimal portfolio weights will change marginally depending on the simulated portfolio as we will conduct a closed-form portfolio optimization in the next step.
+
 <img width="1083" alt="Example-Simulated-Portfolio-Optimization" src="https://user-images.githubusercontent.com/72102851/204142837-53272b5e-fdb3-45c4-96a6-54114dcef091.png">
 
 Below you can find the link to get startet with Matplotlib:
@@ -183,7 +188,7 @@ Below you can find the link to get startet with Matplotlib:
 
 After having identified the simulated version of the portfolio, we will complement the analysis with a the closed-form alternative to find the optimal portfolio. We will use this version to advise user, as results are much more stable Efficient Markowitz Frontier.
 
-To do so, we first install the SciPy (pronounced “Sigh Pie”) open-source software for mathematics, science, and engineering.
+To do so, we first install the SciPy (pronounced “Sigh Pie”) open-source software for mathematics, science, and engineering. Again, user your terminal to install SciPy with the following command:
 ```
 pip install scipy
 ```
@@ -214,6 +219,8 @@ constraints = ({'type':'eq','fun':checkSumToOne})
 w_optimal = minimize(negativeSR,w0,method='SLSQP',bounds=bounds,constraints=constraints)
 ```
 
+As you can see in the last abstract of the above code, the package we use for the closed-form solution is subject to constraints. In our application of the package we set boundaries for the weight to be between (0:1), because we want our resulting optimal weights to be in this region. In practice, this means that you do not allow short-selling a security (= having negative weights) and we do not allow for leveraging a position (= to invest more than 100% in a certain stock). This assumption is coherent with our purpose of advising retail investors, as short-selling a stock is not a typical strategy for such investors.
+
 These calculations allow us to obtain the optimal vector that maximizes Sharpe Ratio:
 ```
 opti_w = w_optimal.x
@@ -221,13 +228,13 @@ opti_return = sum(opti_w * meanLogReturn)
 opti_vol= np.sqrt(np.dot(opti_w.T,np.dot(sigma,opti_w)))
 ```
 
-Because we use the np.linspace() function, which returns evenly spaced numbers over a specified interval, we quickly calculate the minimal and maximal expected log return to work with the appropriate interval to allow for a nice plot in a next step.
+Because we use the np.linspace() function, which returns evenly spaced numbers over a specified interval, we quickly calculate the minimal and maximal expected log return. Doing so allows us to work with the appropriate interval to allow for a nice plot in a next step.
 ```
 minExpectedLogReturn = min(expectedLogReturn)
 maxExpectedLogReturn = max(expectedLogReturn)
 ```
 
-In this step, we can obtain the Efficient Markowitz Frontier (which is located on the boundary of the above scatterplot). For each return (each horizontal line) we plot, we identify the best volatility and then plot the frontier. To do so we use multiple functions which are explained in the comments:
+In this step, we can obtain the Efficient Markowitz Frontier (which is located on the boundary of the above scatterplot). For each return we plot (each horizontal line), we identify the best volatility and then plot the frontier. To do so we use multiple functions which are explained in the comments in the code:
 ```
 returns = np.linspace(minExpectedLogReturn,maxExpectedLogReturn,100)
 
@@ -268,11 +275,13 @@ plt.title("Simulated portfolios and optimal PF based on closed form optimization
 plt.show()
 ```
 
+In this visualization, the red dot again describes the optimial portfolio from the simulated optimization. The black dot is the result of the closed-form optimization process (provided by the package we use). It will then never change and is independent of our simulated optimization. In a final step, we use the portfolio portrayed by the black dot and its associated weights in advising our user. 
+
 <img width="1086" alt="Simulated-Portfolio-Optimization" src="https://user-images.githubusercontent.com/72102851/204142685-6d881128-0b27-4948-99c9-44b9519225ac.png">
 
 ## 4 Advise the User
 
-Below we use a comprehensive print statement, to tell the user which weight (in %) he should assign to each stock to optimize his portfolio returns. In a next stept, we disclose the exact amount of funds the user shall allocate to each of the four stocks. 
+Below we use a comprehensive print statement, to tell the user which weight (in %) he/she should assign to each stock to optimize his portfolio returns. In a next stept, we disclose the exact amount of funds the user shall allocate to each of the four stocks. 
 ```
 print("The optimal weight for {} is {}%, for {} is {}%, for {} is {}% and for {} is {}%.".format(ticker1,round(opti_w[0],2)*100,ticker2,round(opti_w[1],2)*100,ticker3,round(opti_w[2],2)*100,ticker4,round(opti_w[3],2)*100))
 
@@ -305,4 +314,7 @@ plt.show()
 
 ### Sources:
 https://www.codingfinance.com/post/2018-03-27-download-price/
-https://www.youtube.com/watch?v=f2BCmQBCwDs
+
+https://www.youtube.com/watch?v=f2BCmQBCwDs 
+
+https://www.investopedia.com/terms/m/modernportfoliotheory.asp
