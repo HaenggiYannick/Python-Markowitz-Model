@@ -315,6 +315,10 @@ plt.show()
 ### Sources:
 https://www.codingfinance.com/post/2018-03-27-download-price/
 
-https://www.youtube.com/watch?v=f2BCmQBCwDs 
-
 https://www.investopedia.com/terms/m/modernportfoliotheory.asp
+
+https://docs.scipy.org/doc/scipy/reference/optimize.html
+
+https://matplotlib.org/
+
+https://pandas.pydata.org/docs/index.html
