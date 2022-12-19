@@ -40,7 +40,11 @@ from pandas_datareader._utils import RemoteDataError
 from datetime import date, timedelta
 import pandas as pd
 import sys
+import yfinance as yf
+yf.pdr_override()
 ```
+> As of Dec. 19th there was an issue with Yahoo Finance that started on Dec 16th in the afternoon. The real reason for this error is a breaking change from Yahoo FInance (see https://stackoverflow.com/questions/74832296/typeerror-string-indices-must-be-integers-when-getting-data-of-a-stock-from-y). For this reason we use yfinance in the above code.
+
 ### 1.2 User Input
 In the following sequence multiple while loops are used to take the inputs given by the user. First, the user enters the investment amount he/she is interested to optimize, then, the user enters a time frame within which the portfolio of the four stocks shall be optimized. The latter are entered last by typing in their ticker. Be sure to use the exact same ticker that is used on Yahoo Finance (https://finance.yahoo.com/) - whether you use upper- or lowercase letters is irrelevant, however.
 
