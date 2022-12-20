@@ -54,19 +54,17 @@ while True:
         # user interaction
         # ask for initial capital and ticker
         start_capital = float(input("Enter your initial capital:\n"))
+        # ask for testing range and convert to date objects
         date_entry = input('Enter begin of testing range in YYYY-MM-DD format:\n')
         year1, month1, day1 = map(int, date_entry.split('-'))
         start_date = date(year1, month1, day1)
         ticker1 = input("Enter your first ticker available at finance.yahoo.com:\n")
-        # ask for testing range and convert to date objects
         # data import: read and parse file containing OHLC data into dataframe using pandas datareader
         # strftime is used to convert from datetime to string in specific format wanted by datareader
         data1 = web.DataReader(str(ticker1),
                                    start=start_date.strftime('%Y-%m-%d'),
-                                   end=str(date.today()),
-                                   data_source='yahoo')
-        # convert index column to normal column and add standard numbered index column
-        #data1.reset_index(inplace=True, drop=False)
+                                   end=str(date.today()))
+       
         break
     # error handling for wrong ticker input
     except RemoteDataError:
@@ -81,13 +79,11 @@ while True:
         ticker2 = input("Enter your second ticker available at finance.yahoo.com:\n")
         data2 = web.DataReader(str(ticker2),
                                    start=start_date.strftime('%Y-%m-%d'),
-                                   end=str(date.today()),
-                                   data_source='yahoo')
-        #data2.reset_index(inplace=True, drop=False)
+                                   end=str(date.today()))
+                                   
         break
     except RemoteDataError:
         print("Error. No information for your second ticker '{}'. Only enter tickers available on Yahoo Finance.".format(ticker2))
-    # error handling for wrong date/starting capital input
 
 while True:
     try:
@@ -95,22 +91,19 @@ while True:
         ticker3 = input("Enter your third ticker available at finance.yahoo.com:\n")
         data3 = web.DataReader(str(ticker3),
                                    start=start_date.strftime('%Y-%m-%d'),
-                                   end=str(date.today()),
-                                   data_source='yahoo')
-        #data3.reset_index(inplace=True, drop=False)
+                                   end=str(date.today()))
+                                   
         break
     except RemoteDataError:
         print("Error. No information for your third ticker '{}'. Only enter tickers available on Yahoo Finance.".format(ticker3))
 
 while True:
     try:
-        # uUse the same strucutre for the fourth ticker
+        # Use the same strucutre for the fourth ticker
         ticker4 = input("Enter your fourth ticker available at finance.yahoo.com:\n")
         data4 = web.DataReader(str(ticker4),
                                    start=start_date.strftime('%Y-%m-%d'),
-                                   end=str(date.today()),
-                                   data_source='yahoo')
-        #data4.reset_index(inplace=True, drop=False)
+                                   end=str(date.today()))
         break
     except RemoteDataError:
         print("Error. No information for your fourth ticker '{}'. Only enter tickers available on Yahoo Finance.".format(ticker4))
